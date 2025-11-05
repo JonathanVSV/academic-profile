@@ -1,7 +1,5 @@
-Multilanguage personal site
+# Multilingual personal site
+
+An academic profile site hosting some information about myself and some learning resources. The site was built using Quarto and has multilingual support (Spanish/English).
 
 To build the page, run the lines in run.R instead of doing the usual `quarto render`
-
-Need to rebuild the posts, since now the formatting is not working and the images location needs to be updated.
-
-One post was giving an error so it was deleted, need to work on bringin it to this new page: 2022-10-17-presentations-in-r
