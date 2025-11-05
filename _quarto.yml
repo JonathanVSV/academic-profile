@@ -3,8 +3,8 @@ project:
   output-dir: docs
 
 website:
-  site-url: https://jonathanvsv.github.io/babelsite/
-  repo-url: https://github.com/jonathanvsv/babelsite
+  site-url: https://jonathanvsv.github.io/academic-profile/
+  repo-url: https://github.com/jonathanvsv/academic-profile
   repo-actions: [edit, issue]
   title: "My personal site"
   navbar:
