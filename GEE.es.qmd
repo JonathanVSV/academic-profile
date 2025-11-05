@@ -1,0 +1,28 @@
+---
+title: "GEE"
+editor: visual
+---
+
+Hice un manual de cómo usar Google Earth Engine, el cual puede ser consultado en el siguiente link: 
+
+* [Cómo usar Google Earth Engine y no fallar en el intento](https://publicaciones.ciga.unam.mx/index.php/ec/catalog/book/12)
+
+La versión html del manual, así como los archivos utilizados para hacer el libro se pueden consultar en el siguiente repositorio:
+
+* [Manual de Google Earth Engine](https://github.com/JonathanVSV/GEE_manual)
+
+Di un taller con Gabriel Perilla sobre el uso de Google Earth Engine, organizado por SELPER-Méxco en julio de 2021. Los vídeos del curso se pueden consultar en YouTube:
+
+* [Google Earth Engine Workshop](https://www.youtube.com/watch?v=O7jLtnEbYuI&ab_channel=SchmilblickProduction)
+
+También di un curso corto sobre el uso de Sentinel-1 para la detección de inundaciones en GEE.
+
+* [GEE floods](https://www.youtube.com/watch?v=iA5WSPLi5mA)
+
+Finalmente, tengo algunos códigos de Google Earth Engine para obtener mosaicos anuales a partir de imágenes de reflectancia de la superficie de Landsat 4, 5, 7 y 8, u obtener el número de observaciones sin nubes por píxel usando imágenes Sentinel-2, o Sentinel-2 y Landsat.
+
+* [CloudlessMosaics](https://github.com/JonathanVSV/MxMosaic_EE)
+
+* [PerPixelSentinel-2Obs](https://github.com/JonathanVSV/PerPixelObsSentinel-2)
+
+* [Landsat-Sentinel-Obs](https://github.com/JonathanVSV/Landsat-Sentinel-Obs)

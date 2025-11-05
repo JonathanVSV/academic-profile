@@ -1,0 +1,27 @@
+---
+title: "Repositories"
+editor: visual
+---
+
+Esta página da una descripción general de los repositorios públicos en mi GitHub/Gitlab:
+
+- Uso del algoritmo de aprendizaje profundo U-Net para realizar una clasificación de tipos de cubiertas y usos del suelo [U-netR](https://github.com/JonathanVSV/U-netR) o una versión 3D para detectar deforestación [UnetRDef](https://github.com/JonathanVSV/U-netRDef).
+
+- Análisis para actualizar indicadores del Caputal Natural de México. Este repositorio contine mucho del trabajo que realicé en CONABIO (Comisión Nacional para el Conocimiento y Uso de la Biodiversidad).  [BiodiversidadES](https://gitlab.com/OscarGOGO/BiodiversidadES).
+
+- Modelación de biomasa aérea usando LiDAR. Incluye código para calcular la biomasa, la extracción de métricas de LiDAR, el ajuste de distintos modelos, la generación de predicciones y la escritura del manuscrito usando RMarkdown. [AGBLiDAR](https://github.com/JonathanVSV/AGBLiDAR).
+
+
+- Cálculo de algunos atributos estructurales y de diversidad de un bosque [VegCommunity](https://github.com/JonathanVSV/VegCommunity).
+
+- Ajuste de modelos lineales usando los atributos del bosque como variables dependientes y las variables de textura de una imagen como independientes.  [RSModels](https://github.com/JonathanVSV/RSModels).
+
+- Extracción de parámetros adicionales del método BFAST, i.e., un método para detectar disturbios a partir de series de tiempo de imágenes (p.ej., amplitud, magnitud, R2, porcentaje de NA, periodo histórico estable).  [bfast_params_extr](https://github.com/JonathanVSV/bfast_params_extr).
+
+- Archivos para construir el manual de GEE usando bookdown: Cómo usar Google Earth Engine y no fallar en el intento. [GEE_manual](https://github.com/JonathanVSV/GEE_manual).
+
+- Análisis para discriminar entre bosque degradado y conservado. [Conserved-vs-Degraded-Forest](https://github.com/JonathanVSV/Conserved-vs-Degraded-Forest).
+
+- Clasificación de la vegetación en productividad alra e intermedia (usando el NDVI) para distinguit zonas de bosque conservado de bosque degradado/secundario.  [Class-HPV-Deg](https://github.com/JonathanVSV/Class-HPV-Deg).
+
+- Ejemplo de un mapa interactivo con leaflet.  [Cuilala-map](https://github.com/JonathanVSV/Cuilala-map).

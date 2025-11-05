@@ -1,0 +1,30 @@
+---
+title: "Cursos"
+editor: visual
+---
+
+Mi experiencia docente incluye: 
+
+Profesor en la Escuela Nacional de Estudios Superiores Morelia, Universidad Nacional Autónoma de México:
+
+-   Cartografía del Paisaje.
+-   Sistemas de Información Goegráfica II.
+
+Ayudante en la Escuela Nacional de Estudios Superiores Morelia, Universidad Nacional Autónoma de México
+
+-   Análisis y Modelado Espacial.
+-   Herramientas de análisis espacial.
+-   Cartografía y Sistemas de Información Geográfica.
+-   Sistemas de Información Geográfica II.
+-   Estadística aplicada.
+-   Bioestadística.
+
+Además, he impartido algunos cursos básicos de R y de QGIS. Todos los cursos se encuentran en español.
+
+-   [QGIS](https://github.com/JonathanVSV/CursoQGIS)
+
+-   Introducción a R. Datos de biodiversidad: [Repositorio del curso](https://github.com/JonathanVSV/CursoR) y [videos del curso](https://www.youtube.com/watch?v=XtCs6u-pcFw&list=PLiP4keNeUXykgBY0u67mC4mBKgcjr9Q_D).
+
+-   [Curso básico de R](assets/courses/BasicoR.html)
+
+-   [Pruebas estadísticas en R](assets/courses/PruebEstad.html)

@@ -1,0 +1,58 @@
+---
+title: "About"
+# description-meta: "My personal page"
+image: "/assets/images/selper_perfil.jpg"
+page-navigation: false
+toc: false
+#sidebar: false
+page-layout: full
+
+about:
+  template: trestles
+  image-width: 70%
+  links:
+    - icon: github
+      text: "GitHub"
+      url: "https://github.com/JonathanVSV"
+      target: _blank
+    - icon: gitlab
+      text: "GitLab"
+      url: "https://gitlab.com/JonathanVSV"
+      target: _blank
+    - text: "{{< fa smile >}} Hugging Face" 
+      url: "https://huggingface.co/jonathanvsv"
+      target: _blank
+    - text: "{{< ai orcid >}} ORCID"   # use academic icons, "" are needed, you also need to install the fontawesome extension
+      href: https://orcid.org/0000-0001-6422-4802
+      target: _blank
+    - text: "{{< ai researchgate >}} Research Gate"
+      href: https://www.researchgate.net/profile/Jonathan_Solorzano3
+      target: _blank
+    - text: "{{< ai google-scholar >}} Google Scholar"
+      href: https://scholar.google.com/citations?user=sXi9pZMAAAAJ&hl=en
+      target: _blank
+    - text: "{{< ai clarivate >}} Web of Science"
+      href: https://www.webofscience.com/wos/author/record/81687  
+      target: _blank
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/jonathan-v-sol%C3%B3rzano-27344042/
+      target: _blank
+    - text: "{{< ai stackoverflow >}} Stack Overflow"
+      url: "https://stackoverflow.com/users/9022665/jonathan-v-sol%c3%b3rzano"
+      target: _blank
+    - icon: globe
+      text: "GIS Stack Overflow"
+      url: "https://gis.stackexchange.com/users/156904/jonathan-v-sol%c3%b3rzano" 
+      target: _blank
+---
+
+I am a biologist/geographer interested in studying tropical forests and their changes using remote sensing, from a discrete perspective (land use/land cover) to a continuous one (modeling forest attributes, such as aboveground biomass density [AGBD]). I am currently working as an Associate Researcher at the Centro de Investigaciones en Geografía Ambiental (CIGA), Universidad Nacional Autónoma de México (UNAM).
+
+I obtained my Bachelor’s and Master’s degrees in Biology, and a PhD in Geography from the UNAM. My research includes evaluating the use of remote sensing information to model structural and diversity forest attributes, and monitor deforestation and forest degradation. I have experience in acquiring in-field forest data, visually interpreting images, working with different types of remote sensing information (e.g., multispectral, SAR and LiDAR point clouds), obtaining different remote sensing metrics (e.g., spectral indices, calculating GLCM and FOTO texture, percentiles), as well as working with different modeling algorithms or techniques (e.g., linear/non-linear models, machine learning and deep learning algorithms).
+
+I prefer using R or other freely available analysis tools such as QGIS and Google Earth Engine. I believe that using these tools helps in making analyses more transparent and reproducible.
+
+I made a simple wordcloud plot of the most frequent terms in my publications to give a better idea of my research interests.
+
+![Word cloud analysis of my publications](/assets/images/wordcloud.png){width="60%"}

@@ -1,0 +1,54 @@
+/* css styles */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Headings only */
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* navbar colors */
+/* Check _quarto.yml file for background and foreground */
+
+/* Center figure captions */
+.figure, figure {
+  text-align: center; /* centers everything inside the figure block */
+}
+
+/* Specifically target caption text */
+figcaption {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  font-style: italic;     /* optional: make caption text italic */
+  color: #555;            /* optional: adjust caption color */
+  margin-top: 0.5em;      /* spacing between figure and caption */
+}
+
+.btn, .btn-primary, .dropdown-toggle, .babelquarto-languages-button{
+  background-color: #377535 !important; /* green tone */
+  border: #377535;
+  color: #ffffff; /* e.g., #ffffff for white */
+}
+
+a {
+  color: #377535;
+}
+
+a:hover {
+  color: #78a177;
+}
+
+/* Navbar link hover effects */
+.navbar-nav .nav-link:hover {
+  color: #abb4bd !important;
+  background-color: transparent;
+}

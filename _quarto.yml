@@ -1,0 +1,50 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  site-url: https://jonathanvsv.github.io/babelsite/
+  repo-url: https://github.com/jonathanvsv/babelsite
+  repo-actions: [edit, issue]
+  title: "My personal site"
+  navbar:
+    foreground: "#ffffff"
+    background: "#377535"
+    left:
+      - href: index.qmd
+      - figs.qmd
+      - courses.qmd
+      - repos.qmd
+      - GEE.qmd
+      - posts.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    footnotes-hover: true
+    code-copy: true
+    code-link: true
+    code-overflow: wrap
+    fig-align: center
+    link-external-icon: false
+    link-external-newwindow: true
+    email-obfuscation: javascript
+    # include-in-header: "files/includes/_academic.qmd"
+
+
+
+
+babelquarto:
+  languagecodes:
+  - name: es
+    text: "Español"
+  - name: en
+    text: "English"
+  mainlanguage: 'en'
+  languages: ['es']
+title-es: Mi sitio personal
+description-es: description in es
+author-es: Jonathan V. Solórzano
+lang: en
