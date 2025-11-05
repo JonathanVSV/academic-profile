@@ -1,7 +1,7 @@
 ---
 title: "Acerca de"
 # description-meta: "My personal page"
-image: "academic-profile/assets/images/selper_perfil.jpg"
+image: "assets/images/selper_perfil.jpg"
 page-navigation: false
 toc: false
 #sidebar: false
