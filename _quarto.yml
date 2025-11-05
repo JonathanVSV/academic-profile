@@ -45,6 +45,7 @@ babelquarto:
     text: "English"
   mainlanguage: 'en'
   languages: ['es']
+base-url: /academic-profile/
 title-es: Mi sitio personal
 description-es: description in es
 author-es: Jonathan V. Solórzano
