@@ -1,1 +1,1 @@
-Sitemap: /es/sitemap.xml
+Sitemap: https://jonathanvsv.github.io/academic-profile/es/sitemap.xml

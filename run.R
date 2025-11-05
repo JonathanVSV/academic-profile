@@ -1,8 +1,22 @@
-# Para crear la página
-babelquarto::render_website(file.path(getwd()))
+# Need to declare globalvar so that changing language directs to the correct url
+site_url = "https://jonathanvsv.github.io/academic-profile"
+Sys.setenv(BABELQUARTO_CI_URL= site_url)
 
-# Ver cómo va quedando la página
+# Register languages if not already declared in _quarto.yml
+# babelquarto::register_main_language(main_language = "en", project_path = getwd())
+# 
+# babelquarto::register_further_languages(further_languages = "es", project_path = getwd())
+
+# Create website
+babelquarto::render_website(
+  project_path = ".",
+  site_url = site_url,
+  profile = NULL,
+  preview = rlang::is_interactive()
+)
+
+# See preview
 servr::httw("docs")
 
-# Código bash para sutituir lua block codes por sintáxis ```
+# Bash code to fix some syntax in some posts
 find -type f -exec sed -i 's/{{ site.url }}{{ site.baseurl }}//g' {} +

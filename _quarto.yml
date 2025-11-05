@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  site-url: https://jonathanvsv.github.io/academic-profile/
+  site-url: https://jonathanvsv.github.io/academic-profile
   repo-url: https://github.com/jonathanvsv/academic-profile
   repo-actions: [edit, issue]
   title: "My personal site"
@@ -34,9 +34,6 @@ format:
     # include-in-header: '<meta name="google-site-verification" content="JWCP_3AbLIKg6OPeqAbfbO8ZDHEdN8B3F5CnD9wBxBI" />'
     #"files/includes/_academic.qmd"
 
-
-
-
 babelquarto:
   languagecodes:
   - name: es
@@ -45,8 +42,10 @@ babelquarto:
     text: "English"
   mainlanguage: 'en'
   languages: ['es']
-base-url: /academic-profile/
+
 title-es: Mi sitio personal
 description-es: description in es
 author-es: Jonathan V. Solórzano
 lang: en
+
+base-url: /academic-profile/
