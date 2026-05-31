@@ -2,6 +2,7 @@
   {
     "listing": "/posts.html",
     "items": [
+      "/posts/2026-05-30-DEM-as-ridgelines-in-R.html",
       "/posts/2025-03-17-Map-accuracy-in-R.html",
       "/posts/2024-12-13-Create-certificates-in-R.html",
       "/posts/2024-12-13-Google-drive-in-r.html",

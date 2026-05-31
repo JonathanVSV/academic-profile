@@ -5,10 +5,13 @@
 <link rel="alternate" hreflang="es" href="https://jonathanvsv.github.io/academic-profile/es/posts/2022-10-17-presentations-in-r.es.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Presentations in R – Mi sitio personal</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,9 +61,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f3cab8e889a2ee172b5a197664b94ac5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bbd3a3d9076d572fc5422d5a6dfcf00e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -167,7 +170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 <div class="toc-actions"><ul>
 <li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2022-10-17-presentations-in-r.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar de un problema</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></nav>
 </div>
 <!-- main -->
@@ -198,71 +201,111 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><section id="presentations-in-r" class="level1"><h1>Presentations in R</h1>
 <p>Using the <code>xaringan</code> package, you can construct beautiful presentations using R. Essentially, the RMarkdown syntax is used to add text, tables and figures.</p>
 <section id="syntax-summary" class="level2"><h2 class="anchored" data-anchor-id="syntax-summary">Syntax summary</h2>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb1"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>--- to start a new slide</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>-- to show additional content in the same slide (previously hidden).</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>-- to show additional content in the same slide (previously hidden).</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <section id="titles" class="level3"><h3 class="anchored" data-anchor-id="titles">Titles</h3>
 <p>Set titles.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb2"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Header 1</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu"># Header 2</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu"># Header 3</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu"># Header 3</span></span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </section><section id="highlight" class="level3"><h3 class="anchored" data-anchor-id="highlight">Highlight</h3>
 <p>Highlight words in italic or bold font.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>_italic_, **bold**</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode" id="cb3"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>_italic_, **bold**</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </section><section id="lists" class="level3"><h3 class="anchored" data-anchor-id="lists">Lists</h3>
 <p>You can choose between three different types of lists: hyphens, numbered and bullets.</p>
 <p>Hyphens</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb4"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>a</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>b</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>b</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Numbered</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb5"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>a</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>b</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>b</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Bullets</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb6"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>a</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>b</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>b</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </section><section id="add-images" class="level3"><h3 class="anchored" data-anchor-id="add-images">Add images</h3>
 <p>Although you can add images directly with markdown, I recommend using <code>knitr</code> to include images using r code. This way you can better control the size of the image (instead of using directly its size) and setting other options as its alignment.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb7"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">\`\`\`</span>{r echo=F, out.width="90%", fig.align="center"}</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>knitr::include_graphics("img/test.png")</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="sc">\`\`\`</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="sc">\`\`\`</span></span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </section><section id="two-columns" class="level3"><h3 class="anchored" data-anchor-id="two-columns">Two columns</h3>
 <p>There are two default styles to set the objects inside the slides in a two-column format:</p>
 <p>The first one puts your slides in two columns with each one expanding aprox. 50 % of the total width of the slide</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb8"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>.pull-left[</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  your content</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>.pull-right[</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  your content</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>The second one puts your slides in two columns with the first expanding aprox. 25 % of the total width of the slide, and the second, 75 %.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb9"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>.left-column[</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  your content</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>.right-column[</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  your content</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </section><section id="changing-slide-class" class="level3"><h3 class="anchored" data-anchor-id="changing-slide-class">Changing slide class</h3>
 <p>You can add special slides with a different theme than the default. One commonly used is the ‘inverse’ class, which is the theme used for the starting slide. Additionally, you can set other classes such as ‘center’ or ‘bottom’ or combine them to set the position of the text.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="an">class:</span><span class="co"> center, bottom, inverse</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode" id="cb10"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="an">class:</span><span class="co"> center, bottom, inverse</span></span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </section><section id="background-images" class="level3"><h3 class="anchored" data-anchor-id="background-images">Background images</h3>
 <p>You can add images as background for certain slides by selecting the image and setting its position and size.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb11"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="an">background-image:</span><span class="co"> url("img/end.png")</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="an">background-position:</span><span class="co"> 50% 50%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="an">background-size:</span><span class="co"> cover</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="an">background-size:</span><span class="co"> cover</span></span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </section><section id="tables" class="level3"><h3 class="anchored" data-anchor-id="tables">Tables</h3>
 <p>You can use <code>kable</code> inside the <code>knitr</code> package to draw formatted tables.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb12"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>knitr::kable(tab1, </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>             format = "html",</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>             table.attr = "style='width:80%;'") |&gt;</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  kable_styling(bootstrap_options = c("striped"), </span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                full_width = T,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                font_size = 14) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                font_size = 14) </span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </section><section id="formulas" class="level3"><h3 class="anchored" data-anchor-id="formulas">Formulas</h3>
 <p>You can add formulas or use mathematica notation using <code>$$ $$</code> for equations or <code>$ $</code> for mathematical notations.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>$$OA = \displaystyle \frac {TP + TN} {TP + TN + FP + FN}$$</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode" id="cb13"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>$$OA = \displaystyle \frac {TP + TN} {TP + TN + FP + FN}$$</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </section><section id="knit" class="level3"><h3 class="anchored" data-anchor-id="knit">Knit</h3>
 <p>Finally, when the document is ready, knit the document (string ball icon in Rstudio) to create the html file with the slides.</p>
 </section></section><section id="minimal-example" class="level2"><h2 class="anchored" data-anchor-id="minimal-example">Minimal example</h2>
 <p>In the following code the R code blocks are indicated with ``` instead of the three block quotes</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb14"><pre class="sourceCode yml code-with-copy"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Title slide</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -281,7 +324,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">highlightStyle</span><span class="kw">:</span><span class="at"> github</span></span>
 <span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="fu">highlightLines</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="fu">countIncrementalSlides</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb15"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="sc">\`\`\`</span>{r setup, include=FALSE}</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>library(tidyverse)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>library(kableExtra)</span>
@@ -359,7 +405,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a><span class="fu"># ¡Thx!</span></span>
 <span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## contact</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## contact</span></span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>The result is the following (click on the following broken link image to view the pdf presentation).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><embed src="..\assets/images/presentation.pdf" class="img-fluid"></embed></p>
@@ -418,13 +466,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -773,7 +822,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul>
 <li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2022-10-17-presentations-in-r.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar de un problema</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></div></div></footer>
 </body>
 </html>

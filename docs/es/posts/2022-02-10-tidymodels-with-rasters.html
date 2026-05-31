@@ -5,10 +5,13 @@
 <link rel="alternate" hreflang="es" href="https://jonathanvsv.github.io/academic-profile/es/posts/2022-02-10-tidymodels-with-rasters.es.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Working with tidymodels and rasters in R – Mi sitio personal</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,9 +61,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f3cab8e889a2ee172b5a197664b94ac5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bbd3a3d9076d572fc5422d5a6dfcf00e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -153,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 <div class="toc-actions"><ul>
 <li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2022-02-10-tidymodels-with-rasters.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar de un problema</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></nav>
 </div>
 <!-- main -->
@@ -184,6 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><section id="working-with-tidymodels-and-rasters" class="level1"><h1>Working with tidymodels and rasters</h1>
 <p>Tidymodels is a package designed to make different types of models in a tidyverse-esque way. This package is particularly useful for implementing machine learning (ML) algorithms, as well as to divide your data into, training and test sets, etc. My particular personal interest was using this package to train models and then use those models to make predictions using raster data.</p>
 <p>For this procedure you should use additional packages, beside <code>tidymodels</code>. <code>sf</code> contains tools for working with spatial information saved in vectors. <code>yardstick</code> is a package that contains several functions to get evaluation metrics for the models. <code>raster</code> is a package that is going to be superseded by <code>terra</code> to work with rasters. Additionally, <code>fasterize</code> is a package useful to make transformations from vector to raster and finally, <code>doParallel</code> will help to make parallel processing in R.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(yardstick)</span>
@@ -191,9 +195,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fasterize)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(doParallel)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tidymodels_prefer</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tidymodels_prefer</span>()</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <section id="load-data-and-do-some-preprocessing" class="level2"><h2 class="anchored" data-anchor-id="load-data-and-do-some-preprocessing">Load data and do some preprocessing</h2>
 <p>The first thing is to load the labeled data from which we will train and test our model. In this example, we are going to work with spatial information, rasters and vectors. So, we generated a dataset of disturbance and non-disturbance areas using visual interpretation. For the sake of this model, we are going to take the data as spatially independent, however, keep in mind that there are other types of models that can take into account spatial dependency. Here we will use BFAST components and type of forest (tropical dry forest, TDF or temperate forest, TF) as independent variables, while the only dependent variable will be if an area correspnods to disturbance or not. The main idea of the script is to compare a baseline model, based on a magnitude threshold of 0.2 vs a more complex model that might include several other indepdendent variables.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load raster and set names</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>im1 <span class="ot">&lt;-</span> <span class="fu">stack</span>(<span class="st">"bfast_components.tif"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(im1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"breakpoint"</span>,<span class="st">"magnitude"</span>, <span class="st">"error"</span>, <span class="st">"history"</span>, </span>
@@ -239,9 +246,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(DateChange, Obs, cell, x, y, Breakp))</span>
 <span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a glimpse of the data</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co"># glimpse(sample_extr)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co"># glimpse(sample_extr)</span></span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </section><section id="divide-dataset-into-training-and-test-sets" class="level2"><h2 class="anchored" data-anchor-id="divide-dataset-into-training-and-test-sets">Divide dataset into training and test sets</h2>
 <p>After doing that short procedure you need to divide the complete dataset into training and test sets. This can easily be done using <code>tidymodels</code>. Additionally, I decided to use a separate vfold-cv-set (cross-validation set) to test the performance of different model architectures and obtain a standard error of the mean accuracy to decide which architecture could be considered as the best. After deciding the best model architecture, the the selected model will be trained and tested on the training and test datasets, respectively.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed to make everything reproducible</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">15</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sample_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(sample_extr, </span>
@@ -261,8 +271,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>bfast_folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(bfast_training,</span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                        <span class="at">v =</span> <span class="dv">3</span>,</span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                        <span class="at">repeats =</span> <span class="dv">40</span>,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                        <span class="at">strata =</span> Change)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                        <span class="at">strata =</span> Change)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Once you got the training and test sets, as well as the vfold-cv-set the next step will be to specify the models you are going to train. This can be done by specifying different recipes.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify algorithm to be used, engine and mode (classification or regression)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>rf_model <span class="ot">&lt;-</span> <span class="fu">rand_forest</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"randomForest"</span>) <span class="sc">%&gt;%</span></span>
@@ -325,8 +338,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a workflow set</span></span>
 <span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>rf_models <span class="ot">&lt;-</span> <span class="fu">workflow_set</span>(<span class="at">preproc =</span> preprocessing, </span>
 <span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>                          <span class="at">models =</span> <span class="fu">list</span>(<span class="at">rf =</span> rf_model), </span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>                          <span class="at">cross =</span> <span class="cn">FALSE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>                          <span class="at">cross =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Once all the recipes and workflow have been defined the next step is to fit or train the models. Remember we are going to first evaluate the models on the vfold-cv-set, then train it using the training dataset and evaluate it on the test set.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is for running all variations of the model</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the number of nodes to be used for the training procedure. I recommend using 1 less than the total number of cores available in your computer</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>cl <span class="ot">&lt;-</span> <span class="fu">makePSOCKcluster</span>(<span class="dv">5</span>)</span>
@@ -347,8 +363,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>rf_results <span class="sc">%&gt;%</span></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_metrics</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(.metric == "accuracy") %&gt;%</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(<span class="st">"Results/rf_modelcomp_allForest.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(<span class="st">"Results/rf_modelcomp_allForest.csv"</span>)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>After fitting all the models, you should choose the best architecture. In this case, I chose the one with non-significant difference in accuracy with the highest achieved one and tht included less independent variables. You can make a plot to see the results in a graphic way.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose best model according to accuracy</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  rf_results,</span>
@@ -361,8 +380,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Select model architecture with highest accuracy</span></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>rf_results <span class="sc">%&gt;%</span> </span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rank_results</span>(<span class="at">rank_metric =</span> <span class="st">"accuracy"</span>, <span class="at">select_best =</span> T) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">"accuracy"</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">"accuracy"</span>) </span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>After evaluating the results obtained in the vfold-cv-dataset, I chose the best model: “pred3_rf”. So we are using that name as the model name to do the rest of the process. This names are automatically created when training the model.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Best model name</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>rf_best_model_id <span class="ot">&lt;-</span> <span class="st">"pred3_rf"</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -403,8 +425,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>rf_truebest_fit_notlast <span class="ot">&lt;-</span> rf_results <span class="sc">%&gt;%</span> </span>
 <span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_workflow</span>(rf_best_model_id) <span class="sc">%&gt;%</span> </span>
 <span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">finalize_workflow</span>(rf_truebest_results) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(bfast_training)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(bfast_training)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Now we have the trained models (<code>*_notlast</code>) and the trained and evaluated models (<code>*_last_fit</code>) on the test set. So the next step is to collect the predictions from the trained and evaluated models to calculate different evaluation metrics.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Collect predicions</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>rf_baseline_wkfl_preds <span class="ot">&lt;-</span> rf_baseline_last_fit <span class="sc">%&gt;%</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>()</span>
@@ -438,8 +463,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>                <span class="at">estimate =</span> .pred_class,</span>
 <span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>                <span class="at">event_level =</span> <span class="st">"second"</span>, <span class="co">#To focus evaluation on 1</span></span>
 <span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>                .pred_1) <span class="sc">%&gt;%</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(<span class="st">"Results/EvalMetricsRFBest.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(<span class="st">"Results/EvalMetricsRFBest.csv"</span>)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Additionally, you might be interested in obtaining the ROC curves of each model, so you can do it using the following script. In this step, we will create a data frame containing the ROC curves, which can afterwards used to construct a plot showing this results.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ROC plots</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>rf_baseline_roc <span class="ot">&lt;-</span> rf_baseline_wkfl_preds <span class="sc">%&gt;%</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(<span class="at">truth =</span> Change, </span>
@@ -453,8 +481,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_column</span>(<span class="at">Model =</span> rf_best_model_id)</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plotter_rf <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(rf_baseline_roc, rf_truebest_roc) <span class="sc">%&gt;%</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">"1 - specificity"</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">-</span>specificity) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">"1 - specificity"</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">-</span>specificity) </span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>The last step of the workflow is to spatialize the model, i.e., apply the model using the rasters to obtain a final disturbance / non-disturbance map.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use model to make raster</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Function for applying model to rasters and obtain a raster as results</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>fun<span class="ot">&lt;-</span><span class="cf">function</span>(...){</span>
@@ -482,7 +513,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="fu">writeRaster</span>(rf_truebest_pred_im,</span>
 <span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="st">"ClassRaster/RFTruebestClass_"</span>,<span class="st">"pred_AllForest.tif"</span>),</span>
 <span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">format =</span> <span class="st">"GTiff"</span>,</span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>            <span class="at">overwrite =</span> T)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>            <span class="at">overwrite =</span> T)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -536,13 +569,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -891,7 +925,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul>
 <li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2022-02-10-tidymodels-with-rasters.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar de un problema</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></div></div></footer>
 </body>
 </html>

@@ -5,10 +5,13 @@
 <link rel="alternate" hreflang="es" href="https://jonathanvsv.github.io/academic-profile/es/posts/2024-12-13-Google-drive-in-r.es.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Google Drive in R – Mi sitio personal</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,9 +61,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f3cab8e889a2ee172b5a197664b94ac5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bbd3a3d9076d572fc5422d5a6dfcf00e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -152,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 <div class="toc-actions"><ul>
 <li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2024-12-13-Google-drive-in-r.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar de un problema</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></nav>
 </div>
 <!-- main -->
@@ -183,7 +186,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><section id="io-data-in-google-drive-in-r" class="level1"><h1>I/O data in Google Drive in R</h1>
 <p>This post shows how to connect to your Google Drive API. A very good tutorial can be found here: <a href="https://claudiozandonella.github.io/trackdown/articles/oauth-client-configuration.html">trackdown tutorial</a>.</p>
 <p>Here are the main steps</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googledriveR)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googledriveR)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <section id="create-project-in-google-cloud" class="level2"><h2 class="anchored" data-anchor-id="create-project-in-google-cloud">Create project in Google Cloud</h2>
 <p>Go to <a href="https://console.cloud.google.com/">Google Cloud Console</a> and accept terms of use. Then, create a new project, specify name an accept. The tab opnening the projects is right next to Google Cloud logo.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -216,9 +222,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Next, open RStudio locally, install “usethis” package and use <code>usethis::edit_r_environ()</code> to modify the environment, which will be run everytime R starts. In this file save the following: <code>GOOGLEDRIVE_PATH = {location}</code>, setting the location of your json secret instead of {location}.</p>
 <p>After this step, save, restart R, and install “googledrive”. And add the following to your script. First time you run the auth configure step, a window will popup asking for permission. Give permissions and you are ready to use Google Drive from R.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googledrive)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_auth_configure</span>(gargle<span class="sc">::</span><span class="fu">gargle_oauth_client_from_json</span>(<span class="fu">Sys.getenv</span>(<span class="st">"GOOGLEDRIVE_PATH"</span>)))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_auth_configure</span>(gargle<span class="sc">::</span><span class="fu">gargle_oauth_client_from_json</span>(<span class="fu">Sys.getenv</span>(<span class="st">"GOOGLEDRIVE_PATH"</span>)))</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -272,13 +281,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -627,7 +637,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul>
 <li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2024-12-13-Google-drive-in-r.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar de un problema</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></div></div></footer>
 </body>
 </html>

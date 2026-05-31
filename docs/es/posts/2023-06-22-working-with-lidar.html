@@ -5,10 +5,13 @@
 <link rel="alternate" hreflang="es" href="https://jonathanvsv.github.io/academic-profile/es/posts/2023-06-22-working-with-lidar.es.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Working with LiDAR data in R – Mi sitio personal</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,9 +61,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f3cab8e889a2ee172b5a197664b94ac5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bbd3a3d9076d572fc5422d5a6dfcf00e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -147,7 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 <div class="toc-actions"><ul>
 <li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2023-06-22-working-with-lidar.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar de un problema</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></nav>
 </div>
 <!-- main -->
@@ -178,6 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><section id="working-with-lidar-data-in-r" class="level1"><h1>Working with LiDAR data in R</h1>
 <p>For this example we are going to use the <code>lidR</code> package. Additionally, we are going to load <code>terra</code> <code>sf</code> and <code>dplyr</code>. In this example, we will work with lascatalogs, which enables working with several las files at once.</p>
 <p>The first thing is to load the LiDAR data as a catalog and load a shapefile with the areas of interest (that can correspond to in-field measurements). Reading data as a catalog enables refering to the original files without loading all of them into memory.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lidR)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
@@ -190,20 +194,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>lidares<span class="ot">&lt;-</span><span class="fu">readLAScatalog</span>(archivos)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Load plots data</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>ptos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/Plots.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>ptos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/Plots.csv"</span>)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Since <code>ptos</code> is a csv table, first we need to transform it to an sf object and then project it in the same crs as the LiDAR data (EPSG:32615). So lets do that by first indicating the crs in which the coordinates in the original table are and then transforming them to the target EPSG and then create a buffer of radius = 10 m. We also can select only the columns of interest and rename it.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ptos <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(ptos, </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"Easting_Geo"</span>, <span class="st">"Northing_Geo"</span>),</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">|&gt;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">32615</span>) <span class="sc">|&gt;</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Id_parcela) <span class="sc">|&gt;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"PLOT_ID"</span> <span class="ot">=</span> <span class="st">"Id_parcela"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"PLOT_ID"</span> <span class="ot">=</span> <span class="st">"Id_parcela"</span>)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Now, lets check if everything is ok. First, lets run some tests to see if everything is ok.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">las_check</span>(lidares)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">las_check</span>(lidares)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Now let’s check if both datasets have the same crs and overlap. In this case, I will select a single property of the <code>sf</code> object named “Id_parcela”.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lidares)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ptos[<span class="st">"Id_parcela"</span>], <span class="at">add =</span> T)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ptos[<span class="st">"Id_parcela"</span>], <span class="at">add =</span> T)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>You should see something similar to the following image:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="..\assets/images/yaxlidarptos.png" class="img-fluid figure-img"></p>
@@ -211,26 +226,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>After making those tests, we are ready to process the data.</p>
 <p>Since we are working with a LAScatalog, in order to calculate the metrics of interest we can focus to work with only the places where we have field data (ptos). Thus, we can clip the field data plots to the las catalog. There could be plots that do not fall inside the LiDAR data, so we can filter just to stay with the ones that have LiDAR associated data.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ext_lidares <span class="ot">&lt;-</span> <span class="fu">ext</span>(lidares)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ptos <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(ptos,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                ext_lidares)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                ext_lidares)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>The next step is creating a digital terrain model (DTM) using a knn nearest neighbor algorithm. Here you can select another algorithm such as knnidw, tin and kriging.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dtm <span class="ot">&lt;-</span> <span class="fu">rasterize_terrain</span>(lidares,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">res =</span> <span class="dv">1</span>,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">algorithm =</span> <span class="fu">knnidw</span>(<span class="at">k =</span> <span class="dv">6</span>L, <span class="at">p =</span> <span class="dv">2</span>))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dtm)                         </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dtm)                         </span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Then we can use the DTM to subtract those values to the vegetation points in order to get the vegetation height values. This is usually known as normalization. Here we need to set additional options to process chunks.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set output for normalized data, here I will use a files folder</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_chunk_size</span>(lidares) <span class="ot">=</span> <span class="dv">0</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_output_files</span>(lidares) <span class="ot">&lt;-</span>  <span class="fu">paste0</span>(<span class="st">"files"</span>, <span class="st">"/{*}_norm"</span>)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>nlas <span class="ot">&lt;-</span> <span class="fu">normalize_height</span>(lidares, </span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">algorithm  =</span> <span class="fu">tin</span>(),</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">dtm =</span> dtm)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">dtm =</span> dtm)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>The next step is to get the point cloud metrics by plot. In this case, we are going to use the default std metrics from z. Here you can set any function using the folowing notation: <code>~list(q10 = quantile(Z, probs = 0.10),q95 = quantile(Z, probs = 0.95))</code>. Before running the following code, we need to change the options to export the files produced for each plot. Here I will use the pattern “ID” to get each file with a consecutive number.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_output_files</span>(nlas) <span class="ot">&lt;-</span>  <span class="fu">paste0</span>(<span class="st">"files"</span>, <span class="st">"/{ID}"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>metrics <span class="ot">&lt;-</span> <span class="fu">plot_metrics</span>(nlas, </span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                        .stdmetrics_z,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                        ptos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                        ptos)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Finally, you will obtain a data frame with the plot’s ID and its corresponding z- metrics.</p>
 
 
@@ -285,13 +312,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -640,7 +668,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul>
 <li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2023-06-22-working-with-lidar.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar de un problema</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></div></div></footer>
 </body>
 </html>

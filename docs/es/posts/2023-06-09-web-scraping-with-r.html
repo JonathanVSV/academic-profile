@@ -5,10 +5,13 @@
 <link rel="alternate" hreflang="es" href="https://jonathanvsv.github.io/academic-profile/es/posts/2023-06-09-web-scraping-with-r.es.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Web scraping with r – Mi sitio personal</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,9 +61,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f3cab8e889a2ee172b5a197664b94ac5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bbd3a3d9076d572fc5422d5a6dfcf00e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -147,7 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 <div class="toc-actions"><ul>
 <li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2023-06-09-web-scraping-with-r.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar de un problema</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></nav>
 </div>
 <!-- main -->
@@ -178,15 +181,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><section id="web-scraping-with-r" class="level1"><h1>Web scraping with R</h1>
 <p>This post will show you how to get data from a webpage (also known as web scraping) with R and the rvest package. This analysis was performed to complement the data obtained from the spotify API. Since I could not obtain all the data I was interested in from the latter API, I decided to web scrape the bandcamp site.</p>
 <p>The first thing is to load the necessary packages: rvest for the webscraping and purrr for making loops.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Then, indicate the website of interest. In this case, bandcamp.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>site_url <span class="ot">&lt;-</span> <span class="st">"https://bandcamp.com/"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>site_url <span class="ot">&lt;-</span> <span class="st">"https://bandcamp.com/"</span></span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Here is the dataframe I am going to use to consult the data from bandcamp.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nogenre <span class="ot">&lt;-</span> <span class="fu">structure</span>(<span class="fu">list</span>(<span class="at">artist =</span> <span class="fu">c</span>(<span class="st">"Discipline"</span>, <span class="st">"Back from the Futer"</span>, </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">"La Plante Sauvage"</span>, <span class="st">"Quella Vecchia Locanda"</span>, <span class="st">"Daal"</span>, <span class="st">"Bobby Prince"</span>, </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">"Greco Bastian"</span>, <span class="st">"Wayfarer"</span>, <span class="st">"Flub"</span>, <span class="st">"Schizofrnatik"</span>, <span class="st">"Endolith"</span>, </span>
@@ -201,9 +211,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="cn">NA_character_</span>), <span class="at">url =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"https://www.youtube.com/watch?v=OyHqGSO67wo"</span>, </span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>)), <span class="at">row.names =</span> <span class="fu">c</span>(<span class="dv">37</span>L, <span class="dv">13</span>L, </span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="dv">77</span>L, <span class="dv">113</span>L, <span class="dv">32</span>L, <span class="dv">19</span>L, <span class="dv">60</span>L, <span class="dv">151</span>L, <span class="dv">54</span>L, <span class="dv">121</span>L, <span class="dv">49</span>L, <span class="dv">50</span>L, <span class="dv">137</span>L, <span class="dv">95</span>L, </span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>L), <span class="at">class =</span> <span class="st">"data.frame"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>L), <span class="at">class =</span> <span class="st">"data.frame"</span>)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>The next step is creating a function that will be used to make the search in bandcamp. Some additional tweaks had to be made so that the function worked. Most of this part was defined by playing with the bandcamp’s search bar and annotating how the url of the search was processed. Then, you need to inspect the web page to see the names of the sections you are interested in extracting. Finally, I just made some data wragnling to clean the data and export it more homogeneously.</p>
 <p>The main functions for webscraping with rvest are <code>read_html</code>, <code>html_node</code> and <code>html_text</code>. The first one enables reading the html code of the indicated url. The second one enables extracting one node or section of this web page and finally, the third one converts the extracted object into text.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rvest_func <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  band_orig <span class="ot">&lt;-</span> x</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># These substitutions were based on trial and error on the bandcamp website.</span></span>
@@ -253,13 +266,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  resul <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">artist =</span> <span class="fu">rep</span>(band_orig, <span class="fu">nrow</span>(df1)),</span>
 <span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>                  <span class="at">genre =</span> df1 <span class="sc">|&gt;</span> <span class="fu">pull</span>(genre))</span>
 <span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(resul)</span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Use map to apply the functino to each artist. Use possibly as a TryCatch; thus, if no genre was found for certain artist it will return the message “Error in file”.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>resul_exp_nogenre <span class="ot">&lt;-</span> <span class="fu">map</span>(nogenre <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">pull</span>(artist), </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">possibly</span>(rvest_func, </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">otherwise =</span> <span class="st">"Error in file"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">otherwise =</span> <span class="st">"Error in file"</span>))</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Then add the genres as a new column to the previous dataframe and add a counter (llist) that indicates how many genres were associated with each artist.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>prenogenre <span class="ot">&lt;-</span> nogenre <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the list with extracted genres to the original df</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lista =</span> resul_exp_nogenre) <span class="sc">|&gt;</span></span>
@@ -269,8 +288,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>(resul_exp_nogenre[[i]])</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  }, <span class="at">otherwise =</span> <span class="dv">0</span>))) <span class="sc">|&gt;</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># unnest, extract elements from list.</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(llist) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(llist) </span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Then eliminate entries without a genre, and unnest the genres list. Obtain the final data frame.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>nogenreFill <span class="ot">&lt;-</span> prenogenre <span class="sc">|&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Eliminate artist for which no genre was found</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(llist <span class="sc">&gt;=</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
@@ -281,7 +303,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"artist"</span> <span class="ot">=</span> <span class="st">"artist...1"</span>,</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">"genre"</span> <span class="ot">=</span> <span class="st">"genre...6"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select columns of interest.</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(artist, album, genre, url)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(artist, album, genre, url)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>A snapshot of the result:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="..\assets/images/rvesttable.png" class="img-fluid figure-img"></p>
@@ -340,13 +364,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -695,7 +720,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul>
 <li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2023-06-09-web-scraping-with-r.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar de un problema</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></div></div></footer>
 </body>
 </html>

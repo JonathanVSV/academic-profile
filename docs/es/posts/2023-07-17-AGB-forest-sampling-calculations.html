@@ -5,10 +5,13 @@
 <link rel="alternate" hreflang="es" href="https://jonathanvsv.github.io/academic-profile/es/posts/2023-07-17-AGB-forest-sampling-calculations.es.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>AGB forest sampling calculations – Mi sitio personal</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,9 +61,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f3cab8e889a2ee172b5a197664b94ac5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bbd3a3d9076d572fc5422d5a6dfcf00e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -148,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 <div class="toc-actions"><ul>
 <li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2023-07-17-AGB-forest-sampling-calculations.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar de un problema</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></nav>
 </div>
 <!-- main -->
@@ -178,17 +181,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header><section id="agb-forest-sampling-calculations" class="level1"><h1>AGB forest sampling calculations</h1>
 <p>This post shows an example of how to calculate some common plot-level variables from a forest sampling.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BIOMASS)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Read data</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Field data with individual tree measures</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"D:/Drive/Jonathan_trabaggio/Doctorado/R/Ayuquila_Degradation/CleanData/df_all.csv"</span>,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">na.strings =</span> <span class="st">"NA"</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Coordinates of each site.</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"D:/Drive/Jonathan_trabaggio/Doctorado/R/Ayuquila_Degradation/Data/gpscoords.csv"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"D:/Drive/Jonathan_trabaggio/Doctorado/R/Ayuquila_Degradation/Data/gpscoords.csv"</span>)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>How the headers of the data look like the following for the <code>df</code> object.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>     Nombre              Especie Observaciones DAP1 DAP2 DAP3 DAP4 DAP5 DAP6 DAP7 DAP8 DAP9 DAP10 DAP11</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>                 <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>          <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="fl">3.44</span>   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span>    <span class="cn">NA</span>    <span class="cn">NA</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>                 <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>          <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="fl">6.81</span>   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span>   <span class="cn">NA</span>    <span class="cn">NA</span>    <span class="cn">NA</span></span>
@@ -223,13 +233,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span></span>
 <span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span></span>
 <span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span>       <span class="cn">NA</span></span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>and like the following for the <code>coords</code> file.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>      name elevation       date         x        y     xutm    ytum</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   LIMON1 <span class="fl">1118.1133</span> <span class="dv">2022</span><span class="sc">/</span><span class="dv">05</span><span class="sc">/</span><span class="dv">12</span> <span class="sc">-</span><span class="fl">104.1652</span> <span class="fl">19.83815</span> <span class="fl">587412.5</span> <span class="dv">2193788</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> AMACUAU1  <span class="fl">998.5761</span> <span class="dv">2022</span><span class="sc">/</span><span class="dv">05</span><span class="sc">/</span><span class="dv">13</span> <span class="sc">-</span><span class="fl">104.1071</span> <span class="fl">19.89840</span> <span class="fl">593460.8</span> <span class="dv">2200486</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> AMACUAU1  <span class="fl">998.5761</span> <span class="dv">2022</span><span class="sc">/</span><span class="dv">05</span><span class="sc">/</span><span class="dv">13</span> <span class="sc">-</span><span class="fl">104.1071</span> <span class="fl">19.89840</span> <span class="fl">593460.8</span> <span class="dv">2200486</span></span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 </section><section id="fix-taxonomy-and-get-wood-density-for-agb-calculation" class="level1"><h1>Fix taxonomy and get wood density for AGB calculation</h1>
 <p>The first step is to get the corrected names of the species registered in the field. This information will be used to get the wood density by species, genus or family, depending on what info is available in the global woodensity database. Then this wood density is going to be used to calculate AGB as</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate genus and species</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genus =</span> <span class="fu">str_extract</span>(Especie, <span class="st">"[A-z]+(?= )"</span>),</span>
@@ -281,8 +297,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Join AGB by id</span></span>
 <span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(df_agb, <span class="st">"id"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(df_agb, <span class="st">"id"</span>)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>After these steps we now got the individual AGB for each stem and individual, as new columns of the original df. So the next step is going to calculate these same metrics for each individual (e.g., individual AGB sum of all of its stems). Watch that you might need to change some parameters of the <code>subplot_size</code> definition according to your own sampling design.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Max DAP, plot extent</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>subplot_size <span class="ot">&lt;-</span> df<span class="sc">|&gt;</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, <span class="fu">matches</span>(<span class="st">"DAP[0-9]+$"</span>)) <span class="sc">|&gt;</span></span>
@@ -334,8 +353,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(parcela, x, y, cobertura, Observaciones.sitio, </span>
 <span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>         id, subplot_size, AGB_sum, BA_sum, Stem_sum, Altura, </span>
 <span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>         genuscorr, speciescorr, meanwood, levelwood,</span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>         register) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>         register) </span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Now that we have the individual measures we need to calculate the per plot variables: AGBplot, BAplot, Dplot, Stemplot, Hmplot, H10plot. Since some of these measures are sums, extrapolated to 1 ha sums, means, etc, each one is summarised using the most common function to calculate it (e.g., AGB sum, height mean). Finally, we assume that the best registered coordinates are located in the <code>coords</code> file; thus, these coordinates are pasted on to the final result.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------Per plot variables------------------------------</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarise variables that need to be extrapolated</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>vars1 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
@@ -405,14 +427,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>resul <span class="ot">&lt;-</span> resul <span class="sc">|&gt;</span></span>
 <span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(coords, <span class="st">"Plot"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Plot, xutm, yutm, <span class="fu">everything</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="dv">2022</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="dv">2022</span>)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Results look like the following.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 2 × 13</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  Plot     xutm   yutm <span class="st">`</span><span class="at">Cob(%)</span><span class="st">`</span> <span class="st">`</span><span class="at">AGB(Mgha-1)</span><span class="st">`</span> <span class="st">`</span><span class="at">BA(m2ha-1)</span><span class="st">`</span> <span class="st">`</span><span class="at">Dplot(indha-1)</span><span class="st">`</span> <span class="st">`</span><span class="at">Stemplot(stemha-1)</span><span class="st">`</span> <span class="st">`</span><span class="at">Hmean(m)</span><span class="st">`</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>         <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>        <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>            <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>                <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> Amacu… <span class="fl">5.93e5</span> <span class="fl">2.20e6</span>       <span class="dv">75</span>          <span class="fl">37.6</span>         <span class="fl">18.2</span>            <span class="fl">2919.</span>                <span class="fl">5159.</span>       <span class="fl">4.46</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> Limon1 <span class="fl">5.87e5</span> <span class="fl">2.19e6</span>       <span class="dv">75</span>          <span class="fl">52.8</span>         <span class="fl">29.4</span>            <span class="fl">2130.</span>                <span class="fl">4410.</span>       <span class="fl">3.77</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ℹ 4 more variables: `H10mean(m)` &lt;dbl&gt;, elevation &lt;dbl&gt;, date &lt;chr&gt;, year &lt;dbl&gt;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ℹ 4 more variables: `H10mean(m)` &lt;dbl&gt;, elevation &lt;dbl&gt;, date &lt;chr&gt;, year &lt;dbl&gt;</span></span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -466,13 +493,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -821,7 +849,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul>
 <li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2023-07-17-AGB-forest-sampling-calculations.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar de un problema</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></div></div></footer>
 </body>
 </html>

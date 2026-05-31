@@ -5,11 +5,14 @@
 <link rel="alternate" hreflang="es" href="https://jonathanvsv.github.io/academic-profile/es/posts/2022-02-04-making-maps-in-r.es.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="dcterms.date" content="2022-02-07">
 <title>Making maps in R – My personal site</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -59,9 +62,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f3cab8e889a2ee172b5a197664b94ac5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bbd3a3d9076d572fc5422d5a6dfcf00e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -179,14 +182,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><section id="making-a-map-in-r" class="level1"><h1>Making a map in R</h1>
 <p>In this post I will show you how to make a map with a reference map of the location of the study site. To achieve the desired map you will need to load several packages.</p>
 <p><code>tmap</code> is a package that lets you create plots from spatial information. <code>sf</code> is a package that has a lot of tools to work with vector information. <code>tidyverse</code> contains several packages such as <code>tidyr</code>, <code>dplyr</code>, <code>ggplot2</code>, which contain great functions to wrangle, plot and clean data. <code>stars</code> is a package that contains functions to work with raster information. <code>RStoolbox</code> is a package designed to work with remote sensing information, mainly rasters. <code>cowplot</code> is a package that easily lets you join several plots into a single one. Finally, <code>gridExtra</code> contains several functions designed to conver objects into graphical objects (grob) and arrange several plots into a single one.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RStoolbox)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>The next step is to load the vector and raster information used for the map. In this case, I will load a Sentinel-2 4 band image (R, G, B, NIR) and several shapes containing the world’s countries, Mexico and Guatemala polygons and a deforested areas shapefile. Finally, I am using <code>st_make_valid</code> to fix invalid geometries in the Guatemala and defor shapefiles.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>masterIm <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(<span class="st">"Sentinel-2_4B.tif"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>world <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"WorldWithoutMX.shp"</span>)</span>
@@ -195,8 +202,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>gt <span class="ot">&lt;-</span> <span class="fu">st_make_valid</span>(gt)</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>defor <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"deforestation.shp"</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>defor <span class="ot">&lt;-</span> <span class="fu">st_make_valid</span>(defor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>defor <span class="ot">&lt;-</span> <span class="fu">st_make_valid</span>(defor)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Next, I will transform the Sentinel-2 image into a stars object. Sometimes, very large rasters will be read as stars proxy objects, so you need to cast them into a stars object to apply several transformations. Finally, I define an RGB image from the Sentinel-2 one.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform proxy object into stars</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rgbIm <span class="ot">&lt;-</span> <span class="fu">st_as_stars</span>(masterIm[,,,<span class="dv">3</span><span class="sc">:</span><span class="dv">1</span>])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>rgbIm <span class="ot">&lt;-</span> <span class="fu">st_rgb</span>(rgbIm,</span>
@@ -204,11 +214,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">maxColorValue =</span> <span class="dv">6000</span>,</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">use_alpha =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.98</span>), <span class="co">#Probabilities for percent clip</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">stretch =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">stretch =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Additionally, I wish to create a bounding box polygon so the area covered by the image can be shown in the reference map.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>box <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(rgbIm)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>box <span class="ot">&lt;-</span> <span class="fu">c</span>(box[<span class="dv">1</span>]<span class="sc">+</span><span class="fl">0.2</span>,box[<span class="dv">2</span>]<span class="sc">+</span><span class="fl">0.2</span>,box[<span class="dv">3</span>]<span class="sc">-</span><span class="fl">0.2</span>,box[<span class="dv">4</span>]<span class="sc">-</span><span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>box <span class="ot">&lt;-</span> <span class="fu">c</span>(box[<span class="dv">1</span>]<span class="sc">+</span><span class="fl">0.2</span>,box[<span class="dv">2</span>]<span class="sc">+</span><span class="fl">0.2</span>,box[<span class="dv">3</span>]<span class="sc">-</span><span class="fl">0.2</span>,box[<span class="dv">4</span>]<span class="sc">-</span><span class="fl">0.2</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Afterward, the main map is created. Each element will be added to the map by using the <code>tm_shape</code> functions to indicate the source data to plot, followed by a <code>tm_*</code> function indicating the type of object, i.e., raster or filled polygons (<code>tm_fill</code>). Then, the graticules of the map are added using <code>tm_graticules</code> and the scale bar, using <code>tm_scale_bar</code>. Finally, you can make further customisations to the default theme, using <code>tm_layout</code>. Finally, the map is converted to a graphical object (grob) using <code>tmap_grob()</code></p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Normal map</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plot_im <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(rgbIm,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">bbox =</span> box) <span class="sc">+</span></span>
@@ -255,8 +271,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>                         <span class="at">bg.color =</span> <span class="st">"gray90"</span>,</span>
 <span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>                         <span class="at">bg.alpha =</span> <span class="fl">0.2</span>)</span>
 <span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>plot_im <span class="ot">&lt;-</span> <span class="fu">tmap_grob</span>(plot_im)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>plot_im <span class="ot">&lt;-</span> <span class="fu">tmap_grob</span>(plot_im)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Once the main map has been created, you will need to create the legend of the map. So you can place it in the desired position outside the main map. To do this, you need to draw a map containing the information shown in the legend. Notice that the <code>tm_layout</code> enables a <code>legend.only</code> option to just create an object containing the legend. Then, the legend is converted to a grob.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>legend_im <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(defor) <span class="sc">+</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"finid"</span>,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">border.col =</span> <span class="st">"transparent"</span>,</span>
@@ -277,13 +296,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">outer.margins =</span> <span class="fu">c</span>(<span class="fl">0.1</span>),</span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">inner.margins =</span> <span class="fu">c</span>(<span class="fl">0.1</span>))  </span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>legend_im <span class="ot">&lt;-</span> <span class="fu">tmap_grob</span>(legend_im)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>legend_im <span class="ot">&lt;-</span> <span class="fu">tmap_grob</span>(legend_im)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Then, you will need the bounding box as a spatial feature, so it can be added to the map. Additionally, you need to create an object containing the bounding box to be drawn on the reference map (<code>mx_box</code>).</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>box_shape <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(rgbIm) <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">st_as_sfc</span>()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>mx_box <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(mx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>mx_box <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(mx)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>The next step is to create the reference or inset map that will show the context of the study area. In this case, this map will show neighboring countries of Mexico, as well as the study site location. Similar to the first map, the result is converted to a grob.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>inset_im <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(world,</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">bbox =</span> mx_box)<span class="sc">+</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"gray90"</span>) <span class="sc">+</span></span>
@@ -294,16 +319,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">col =</span> <span class="st">"firebrick2"</span>,</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">lwd =</span> <span class="dv">2</span>) </span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>inset_im <span class="ot">&lt;-</span> <span class="fu">tmap_grob</span>(inset_im)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>inset_im <span class="ot">&lt;-</span> <span class="fu">tmap_grob</span>(inset_im)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>To have better control of the position of every element in the map, you will need to create an empty plot as base plot, so afterward, all the other elements will be placed over this empty plot. Additionally, you need to create an additional grob with text that shows the datum of the showed data.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create empty plot as base</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_blank</span>() <span class="sc">+</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>texto <span class="ot">&lt;-</span> <span class="fu">text_grob</span>(<span class="at">label =</span> <span class="st">"WGS 84"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">size =</span> <span class="dv">8</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">size =</span> <span class="dv">8</span>) </span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Next, you need to draw all the elements on the empty plot and set its x and y positions, as well as width and height values. All these values are limited to a 0-1 range. However, negative values can be used to reduce the size of certain margins and obtain the desired position.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>exp_plot <span class="ot">&lt;-</span> <span class="fu">ggdraw</span>(p1) <span class="sc">+</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">draw_plot</span>(plot_im,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">x =</span> <span class="sc">-</span><span class="fl">0.17</span>,</span>
@@ -332,15 +363,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="dv">0</span>,</span>
 <span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="dv">0</span>,</span>
 <span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="fl">0.2</span>,</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>            <span class="at">height =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>            <span class="at">height =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Finally, you can export the resulting map using <code>save_plot</code>.</p>
+<div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save_plot</span>(exp_plot,</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>          <span class="co"># asp = 1.5,</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">base_width =</span> <span class="dv">20</span>,</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">base_height =</span> <span class="dv">15</span>,</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">units =</span> <span class="st">"cm"</span>,</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">dpi =</span> <span class="dv">300</span>,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">filename =</span> <span class="st">"Map/Map1.jpeg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">filename =</span> <span class="st">"Map/Map1.jpeg"</span>)</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
 <p>Here is the resulting map.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="..\assets/images/Map1.jpeg" class="img-fluid figure-img"></p>
@@ -399,13 +435,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

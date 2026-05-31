@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
 <head>
-<link rel="alternate" hreflang="en" href="https://jonathanvsv.github.io/academic-profile/posts/2024-12-10-extract-pdf-tables.html" />
-<link rel="alternate" hreflang="es" href="https://jonathanvsv.github.io/academic-profile/es/posts/2024-12-10-extract-pdf-tables.es.html" />
+<link rel="alternate" hreflang="en" href="https://jonathanvsv.github.io/academic-profile/posts/2026-05-30-DEM-as-ridgelines-in-R.html" />
+<link rel="alternate" hreflang="es" href="https://jonathanvsv.github.io/academic-profile/es/posts/2026-05-30-DEM-as-ridgelines-in-R.es.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.9.36">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="dcterms.date" content="2024-12-12">
-<title>Extract tables from pdf in R – My personal site</title>
+<title>DEM as ridgelines in R – Mi sitio personal</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -79,17 +78,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script><link rel="stylesheet" href="../styles.css">
 </head>
@@ -99,29 +98,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">My personal site</span>
+    <span class="navbar-title">Mi sitio personal</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item"><div class="dropdown" id="languages-links-parent">
-<button class="btn btn-primary dropdown-toggle babelquarto-languages-button" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i> English</button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://jonathanvsv.github.io/academic-profile/es/posts/2024-12-10-extract-pdf-tables.html" id="language-link-es">Español</a></li></ul>
+<button class="btn btn-primary dropdown-toggle babelquarto-languages-button" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="languages-button"><i class="bi bi-globe2"></i> Español</button><ul class="dropdown-menu" id="languages-links"><li><a class="dropdown-item" href="https://jonathanvsv.github.io/academic-profile/posts/2026-05-30-DEM-as-ridgelines-in-R.html" id="language-link-en">English</a></li></ul>
 </div></li>
 <li class="nav-item">
     <a class="nav-link" href="../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Acerca de</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../figs.html"> 
-<span class="menu-text">Figures and photos</span></a>
+<span class="menu-text">Figuras y fotos</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../courses.html"> 
-<span class="menu-text">Courses</span></a>
+<span class="menu-text">Cursos</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../repos.html"> 
@@ -143,12 +142,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+<li>
+<a href="#dem-as-ridgelines-in-r" id="toc-dem-as-ridgelines-in-r" class="nav-link active" data-scroll-target="#dem-as-ridgelines-in-r">DEM as ridgelines in R</a>
+  <ul class="collapse">
+<li><a href="#area-of-interest" id="toc-area-of-interest" class="nav-link" data-scroll-target="#area-of-interest">Area of interest</a></li>
+  <li><a href="#get-elevation-data" id="toc-get-elevation-data" class="nav-link" data-scroll-target="#get-elevation-data">Get elevation data</a></li>
+  </ul>
+</li>
+  </ul>
+<div class="toc-actions"><ul>
+<li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2026-05-30-DEM-as-ridgelines-in-R.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
+</ul></div></nav>
+</div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Extract tables from pdf in R</h1>
+<h1 class="title">DEM as ridgelines in R</h1>
   <div class="quarto-categories">
     <div class="quarto-category">blog</div>
   </div>
@@ -160,9 +173,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
     
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 12, 2024</p>
+      <p class="date">30 de mayo de 2026</p>
     </div>
   </div>
   
@@ -171,59 +184,98 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p>This blog entry will show how to extract tables from a pdf, using tabulizer. Load necessary packages.</p>
+</header><section id="dem-as-ridgelines-in-r" class="level1"><h1>DEM as ridgelines in R</h1>
+<p>This post will show you how to visualize a DEM as a ridgeline plot, similar to the famous Joy Division - Unkown Pleasures album cover. This post was based on the original post of DiegHernan at: https://dieghernan.github.io/202205_Unknown-pleasures-R/ with only minor modifications</p>
+<p>First, install and load packages</p>
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tabulizer)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(elevatr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Need to install from remotes to work</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github("ropensci/rnaturalearthdata")</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
-<p>Read the pdf of interest, indicating the pages in which the table is located.</p>
+<section id="area-of-interest" class="level2"><h2 class="anchored" data-anchor-id="area-of-interest">Area of interest</h2>
+<p>In this exmample, we are going to use <code>rnaturalearth</code> to download the polygon of a country of interest, so this can be used to afterwards obtain the DEM for this polygon.</p>
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>table1 <span class="ot">&lt;-</span> <span class="fu">extract_tables</span>(<span class="st">"IUCN_mesoamerica_restoration.pdf"</span>,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">output =</span> <span class="st">"data.frame"</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">pages =</span> <span class="fu">c</span>(<span class="dv">388</span><span class="sc">:</span><span class="dv">417</span>), </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">area =</span> <span class="cn">NULL</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">guess =</span> <span class="cn">TRUE</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                            </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>region <span class="ot">&lt;-</span> <span class="fu">ne_countries</span>(<span class="at">country =</span> <span class="st">"Mexico"</span>, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">scale =</span> <span class="st">"medium"</span>, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">returnclass =</span> <span class="st">"sf"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="dv">6372</span>)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
-<p>Then join tables located in different pages as the same table. Substitute empty cells by NA and locate extra rows based on the NA located in the first column (Familia). Then join extra rows with the previous one.</p>
+</section><section id="get-elevation-data" class="level2"><h2 class="anchored" data-anchor-id="get-elevation-data">Get elevation data</h2>
+<p>Get DEM data using z values depending on the desired zoom (higerh value: more zoom) and extent of the area of interest. Convert to rast and mask using the polygon.</p>
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Unir listas como filas de un mismo dataframe</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>exp_table <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(table1)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sustituir espacios en blanco por NA</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>exp_table[exp_table<span class="sc">==</span><span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Ver dónde hay NA en la columna de Familias para identificar filas extra</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>inds <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">is.na</span>(exp_table<span class="sc">$</span>Familia))</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># PAra esas filas extra pegar el texto con la fila anterior</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> inds){</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.na</span>(exp_table<span class="sc">$</span>Hábitat[i])){</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    exp_table<span class="sc">$</span>Hábitat[(i<span class="dv">-1</span>)] <span class="ot">&lt;-</span> <span class="fu">paste</span>(exp_table<span class="sc">$</span>Hábitat[(i<span class="dv">-1</span>)], exp_table<span class="sc">$</span>Hábitat[i], <span class="at">collapse =</span> <span class="st">" "</span>)  </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.na</span>(exp_table<span class="sc">$</span>Distribución[i])){</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    exp_table<span class="sc">$</span>Distribución[(i<span class="dv">-1</span>)] <span class="ot">&lt;-</span> <span class="fu">paste</span>(exp_table<span class="sc">$</span>Distribución[(i<span class="dv">-1</span>)], exp_table<span class="sc">$</span>Distribución[i], <span class="at">collapse =</span> <span class="st">" "</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dem <span class="ot">&lt;-</span> <span class="fu">get_elev_raster</span>(<span class="at">location =</span> region, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">z =</span> <span class="dv">6</span>, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">prj =</span> <span class="fu">st_crs</span>(region),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">src =</span> <span class="st">"aws"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">clip =</span> <span class="st">"bbox"</span>, </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">expand =</span> <span class="dv">2000</span>) </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>dem <span class="ot">&lt;-</span> <span class="fu">rast</span>(dem) <span class="sc">|&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mask</span>(<span class="fu">vect</span>(region)) </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(dem)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dem)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
-<p>Finally, export the result to a csv</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="..\assets/images/dem_MX.png" class="img-fluid figure-img"></p>
+<figcaption>Mexico DEM</figcaption></figure>
+</div>
+<p>If image has very high resolution, aggregate by a selected factor. In this case, reduce the pixel resolution by a factor of 10.</p>
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exportar</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>exp_table <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Quitar columnas con NA en la columna familia</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Familia)) <span class="sc">|&gt;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Escribir</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(<span class="st">"IUCN_ApendiceA1.csv"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">fileEncoding =</span> <span class="st">"UTF-8"</span>)</span></code></pre></div>
-<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dem_lowres <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(dem, <span class="dv">10</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dem_lowres) <span class="ot">&lt;-</span> <span class="st">"elevation"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(dem_lowres)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dem_lowres)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="..\assets/images/dem_MX_lowres.png" class="img-fluid figure-img"></p>
+<figcaption>Mexico DEM low resolution</figcaption></figure>
+</div>
+<p>Then transform the DEM into a table format so it can be ingested into ggplot.</p>
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dem_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dem_lowres, <span class="at">xy =</span> <span class="cn">TRUE</span>, <span class="at">na.rm =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<p>Create the ridges plot. Add the sf object as the base layer, then add on top, the ridgeline plot. You can change the colors (color: color of the line, fill: color of the space between lines), lwd (width of lines) and scale (factor by which to scale z values) to get the best visual result.</p>
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> region, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="cn">NA</span>, </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"black"</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.95</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ridgeline</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> dem_df, <span class="fu">aes</span>(</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> x, </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> y,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">group =</span> y,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">height =</span> elevation</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> <span class="dv">25</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"black"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd =</span> <span class="fl">0.25</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_height =</span> <span class="fl">0.1</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"black"</span>))</span></code></pre></div>
+<button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="assets/images/dem_MX_ridges.png" class="img-fluid figure-img"></p>
+<figcaption>Mexico DEM low resolution</figcaption></figure>
 </div>
 
 
-
-</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -248,12 +300,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copiado");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copiado");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
@@ -296,7 +348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/jonathanvsv\.github\.io\/academic-profile");
+        var filterRegex = new RegExp("https:\/\/jonathanvsv\.github\.io\/academic-profile\/es");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -628,9 +680,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul>
-<li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2024-12-10-extract-pdf-tables.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li>
-<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul>
+<li><a href="https://github.com/jonathanvsv/academic-profile/edit/main/posts/2026-05-30-DEM-as-ridgelines-in-R.md" class="toc-action"><i class="bi bi-github"></i>Editar esta página</a></li>
+<li><a href="https://github.com/jonathanvsv/academic-profile/issues/new" class="toc-action"><i class="bi empty"></i>Informar sobre problema</a></li>
 </ul></div></div></div></footer>
 </body>
 </html>

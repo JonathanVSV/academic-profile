@@ -19,4 +19,4 @@ babelquarto::render_website(
 servr::httw("docs")
 
 # Bash code to fix some syntax in some posts
-find -type f -exec sed -i 's/{{ site.url }}{{ site.baseurl }}//g' {} +
+# find /docs/ -type f -exec sed -i 's/{{ site.url }}{{ site.baseurl }}//g' {} +
