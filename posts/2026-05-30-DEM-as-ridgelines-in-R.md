@@ -106,4 +106,4 @@ ggplot() +
   theme(plot.background = element_rect(fill = "black"))
 ```
 
-![Mexico DEM low resolution](assets/images/dem_MX_ridges.png)
+![Mexico DEM low resolution](/assets/images/dem_MX_ridges.png)
