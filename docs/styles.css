@@ -39,6 +39,12 @@ figcaption {
   color: #ffffff; /* e.g., #ffffff for white */
 }
 
+.nav-footer {
+  background-color: #377535 !important; /* green tone */
+  border: #377535;
+  color: #ffffff; !important;/* e.g., #ffffff for white */
+}
+
 a {
   color: #377535;
 }

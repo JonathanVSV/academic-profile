@@ -6,3 +6,5 @@
 /.quarto/
 academic-profile.Rproj
 .positai
+
+**/*.quarto_ipynb

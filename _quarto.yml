@@ -18,8 +18,10 @@ website:
       - GEE.qmd
       - posts.qmd
   page-footer: 
+    foreground: "#ffffff"
+    background: "#377535"
     left: <i class="fab fa-creative-commons"></i> 2025 Jonathan V. Solórzano
-    right: This website is built with [<i class="fa brands github"></i>](https://github.com/JonathanVSV/academic-profile){target=_blank}, [<i class="fa brands r-project"></i>](https://www.r-project.org/about.html){target=_blank} and [Quarto](https://quarto.org/){target=_blank}
+    right: This website is built with [<i class="fa-brands fa-github"></i>](https://github.com/JonathanVSV/academic-profile){target=_blank}, [<i class="fa-brands fa-r-project"></i>](https://www.r-project.org/about.html){target=_blank} and [Quarto](https://quarto.org/){target=_blank}
 
 format:
   html:
