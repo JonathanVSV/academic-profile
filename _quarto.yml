@@ -5,7 +5,7 @@ project:
 website:
   site-url: https://jonathanvsv.github.io/academic-profile
   repo-url: https://github.com/jonathanvsv/academic-profile
-  repo-actions: [edit, issue]
+  # repo-actions: [edit, issue]
   title: "My personal site"
   navbar:
     foreground: "#ffffff"
@@ -17,6 +17,9 @@ website:
       - repos.qmd
       - GEE.qmd
       - posts.qmd
+  page-footer: 
+    left: <i class="fab fa-creative-commons"></i> 2025 Jonathan V. Solórzano
+    right: This website is built with [<i class="fa brands github"></i>](https://github.com/JonathanVSV/academic-profile){target=_blank}, [<i class="fa brands r-project"></i>](https://www.r-project.org/about.html){target=_blank} and [Quarto](https://quarto.org/){target=_blank}
 
 format:
   html:
