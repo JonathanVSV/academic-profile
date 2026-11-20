@@ -5,7 +5,7 @@
 <link rel="alternate" hreflang="es" href="https://jonathanvsv.github.io/academic-profile/es/posts/2023-07-14-rasters-and-vectors-with-terra.es.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.19">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="dcterms.date" content="2023-07-14">
 <title>Rasters and vectors with terra – My personal site</title>
@@ -13,10 +13,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -62,9 +65,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-766db4f22cb325127a3ad17c2d6be55e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-47a368f8809a06e2c65a4eda659d3e74.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -232,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/terra1.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/terra1.png" class="img-fluid figure-img"></p>
 <figcaption>Data.</figcaption></figure>
 </div>
 </section><section id="vector-operations" class="level1"><h1>Vector operations</h1>
@@ -244,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/terra2.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/terra2.png" class="img-fluid figure-img"></p>
 <figcaption>Buffer</figcaption></figure>
 </div>
 </section><section id="intersection" class="level2"><h2 class="anchored" data-anchor-id="intersection">Intersection</h2>
@@ -254,7 +257,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/terra3.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/terra3.png" class="img-fluid figure-img"></p>
 <figcaption>Intersection</figcaption></figure>
 </div>
 </section></section><section id="raster-operations" class="level1"><h1>Raster operations</h1>
@@ -266,7 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/terra4.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/terra4.png" class="img-fluid figure-img"></p>
 <figcaption>Masked raster</figcaption></figure>
 </div>
 </section><section id="operations-over-all-cells" class="level2"><h2 class="anchored" data-anchor-id="operations-over-all-cells">Operations over all cells</h2>
@@ -279,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/terra5.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/terra5.png" class="img-fluid figure-img"></p>
 <figcaption>Sum of both bands</figcaption></figure>
 </div>
 </section><section id="global-operations" class="level2"><h2 class="anchored" data-anchor-id="global-operations">Global operations</h2>
@@ -296,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/terra6.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/terra6.png" class="img-fluid figure-img"></p>
 <figcaption>Focal max.</figcaption></figure>
 </div>
 </section></section><section id="raster-vector-operations" class="level1"><h1>Raster vector operations</h1>
@@ -307,7 +310,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/terra7.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/terra7.png" class="img-fluid figure-img"></p>
 <figcaption>Cropped images.</figcaption></figure>
 </div>
 </section><section id="mask" class="level2"><h2 class="anchored" data-anchor-id="mask">Mask</h2>
@@ -317,7 +320,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/terra8.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/terra8.png" class="img-fluid figure-img"></p>
 <figcaption>Masked image (seems nothing happened due to overlap between raster and polygon).</figcaption></figure>
 </div>
 </section><section id="extract-values" class="level2"><h2 class="anchored" data-anchor-id="extract-values">Extract values</h2>

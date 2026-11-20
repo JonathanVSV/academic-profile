@@ -58,3 +58,55 @@ a:hover {
   color: #abb4bd !important;
   background-color: transparent;
 }
+
+/* ---------- Thumbnail gallery (figs.qmd / figs.es.qmd) ---------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.5rem 1.25rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.gallery .quarto-figure,
+.gallery figure,
+.gallery figure p {
+  margin: 0;
+}
+
+.gallery a.lightbox {
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.2s ease;
+}
+
+.gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;       /* crop to equal tiles; full image opens on click */
+  transition: transform 0.25s ease;
+}
+
+.gallery a.lightbox:hover,
+.gallery a.lightbox:focus-visible {
+  box-shadow: 0 4px 14px rgba(55, 117, 53, 0.35);
+}
+
+.gallery a.lightbox:hover img,
+.gallery a.lightbox:focus-visible img {
+  transform: scale(1.04);
+}
+
+.gallery figcaption {
+  font-size: 0.85rem;
+  font-style: normal;
+  color: #333;
+  line-height: 1.3;
+  margin-top: 0.5em;
+}
+
+/* Lightbox caption: left-aligned and readable */
+.glightbox-clean .gslide-description { font-family: 'Montserrat', sans-serif; }
+.glightbox-clean .gdesc-inner p { text-align: left; font-size: 0.9rem; }

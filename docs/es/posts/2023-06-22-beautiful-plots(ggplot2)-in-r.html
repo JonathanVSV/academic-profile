@@ -5,17 +5,20 @@
 <link rel="alternate" hreflang="es" href="https://jonathanvsv.github.io/academic-profile/es/posts/2023-06-22-beautiful-plots(ggplot2)-in-r.es.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.19">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Beautiful-plots(ggplot2)-in-r – Mi sitio personal</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -61,9 +64,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-766db4f22cb325127a3ad17c2d6be55e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-47a368f8809a06e2c65a4eda659d3e74.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -240,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
-<p><img src="..\assets/images/scatter.png" class="img-fluid" alt="Scatterplot.">]</p>
+<p><img src="../assets/images/scatter.png" class="img-fluid" alt="Scatterplot.">]</p>
 </section><section id="line-plot" class="level2"><h2 class="anchored" data-anchor-id="line-plot">Line plot</h2>
 <div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
@@ -248,7 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
-<p><img src="..\assets/images/line.png" class="img-fluid" alt="Line plot">](</p>
+<p><img src="../assets/images/line.png" class="img-fluid" alt="Line plot">](</p>
 </section><section id="bar-plot" class="level2"><h2 class="anchored" data-anchor-id="bar-plot">Bar plot</h2>
 <div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
@@ -256,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
-<p><img src="..\assets/images/bar.png" class="img-fluid" alt="Bar plot">]</p>
+<p><img src="../assets/images/bar.png" class="img-fluid" alt="Bar plot">]</p>
 </section><section id="column-plot" class="level2"><h2 class="anchored" data-anchor-id="column-plot">Column plot</h2>
 <div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
@@ -268,7 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/col.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/col.png" class="img-fluid figure-img"></p>
 <figcaption>Column plot.</figcaption></figure>
 </div>
 </section><section id="box-plot" class="level2"><h2 class="anchored" data-anchor-id="box-plot">Box plot</h2>
@@ -280,7 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/box.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/box.png" class="img-fluid figure-img"></p>
 <figcaption>Boxplot</figcaption></figure>
 </div>
 </section><section id="histogram-plot" class="level2"><h2 class="anchored" data-anchor-id="histogram-plot">Histogram plot</h2>
@@ -291,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/hist.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/hist.png" class="img-fluid figure-img"></p>
 <figcaption>Histogram</figcaption></figure>
 </div>
 </section></section><section id="adding-colors" class="level1"><h1>Adding colors</h1>
@@ -305,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/color.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/color.png" class="img-fluid figure-img"></p>
 <figcaption>Scatterplot with colors by factor.</figcaption></figure>
 </div>
 </section><section id="fill" class="level2"><h2 class="anchored" data-anchor-id="fill">Fill</h2>
@@ -317,7 +320,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/fill.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/fill.png" class="img-fluid figure-img"></p>
 <figcaption>Barplot with fill by factor.</figcaption></figure>
 </div>
 </section><section id="customized-colors" class="level2"><h2 class="anchored" data-anchor-id="customized-colors">Customized colors</h2>
@@ -332,7 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/manualcol.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/manualcol.png" class="img-fluid figure-img"></p>
 <figcaption>Scatterplot with manual colors by factor.</figcaption></figure>
 </div>
 </section><section id="rcolorbrewer" class="level3"><h3 class="anchored" data-anchor-id="rcolorbrewer">Rcolorbrewer</h3>
@@ -346,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/colorbrewer.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/colorbrewer.png" class="img-fluid figure-img"></p>
 <figcaption>Scatterplots with colors set by RColorbrewer.</figcaption></figure>
 </div>
 </section></section></section><section id="axes" class="level1"><h1>Axes</h1>
@@ -364,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/axes.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/axes.png" class="img-fluid figure-img"></p>
 <figcaption>Scatterplot with customized axes.</figcaption></figure>
 </div>
 </section><section id="axes-labels" class="level2"><h2 class="anchored" data-anchor-id="axes-labels">Axes labels</h2>
@@ -379,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/axeslab.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/axeslab.png" class="img-fluid figure-img"></p>
 <figcaption>Scatterplot with customized axes labels.</figcaption></figure>
 </div>
 </section></section><section id="facets" class="level1"><h1>Facets</h1>
@@ -394,7 +397,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/facetgrid.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/facetgrid.png" class="img-fluid figure-img"></p>
 <figcaption>Scatterplot with facets set as a grid.</figcaption></figure>
 </div>
 </section><section id="facet-wrap" class="level2"><h2 class="anchored" data-anchor-id="facet-wrap">Facet wrap</h2>
@@ -408,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/facetwrap.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/facetwrap.png" class="img-fluid figure-img"></p>
 <figcaption>Scatterplot with facets set as a wrap (multiple factors will be accumulated by each panel).</figcaption></figure>
 </div>
 </section></section><section id="theme" class="level1"><h1>Theme</h1>
@@ -456,7 +459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/mytheme.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/mytheme.png" class="img-fluid figure-img"></p>
 <figcaption>Scatterplot with facet wrap where several theme elements have been customized according to personal criteria.</figcaption></figure>
 </div>
 </section><section id="cowplot-theme" class="level2"><h2 class="anchored" data-anchor-id="cowplot-theme">Cowplot theme</h2>
@@ -470,7 +473,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>()</span></code></pre></div>
 <button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button>
 </div>
-<p><img src="..\assets/images/cowplottheme.png" class="img-fluid" alt="Scatterplot with facet wrap where several theme elements have been customized according to the cowplot theme.">]</p>
+<p><img src="../assets/images/cowplottheme.png" class="img-fluid" alt="Scatterplot with facet wrap where several theme elements have been customized according to the cowplot theme.">]</p>
 
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

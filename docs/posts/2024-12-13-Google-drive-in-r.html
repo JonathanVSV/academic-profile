@@ -5,7 +5,7 @@
 <link rel="alternate" hreflang="es" href="https://jonathanvsv.github.io/academic-profile/es/posts/2024-12-13-Google-drive-in-r.es.html" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.19">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="dcterms.date" content="2024-12-13">
 <title>Google Drive in R – My personal site</title>
@@ -13,10 +13,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -62,9 +65,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script><script src="../site_libs/quarto-nav/headroom.min.js"></script><script src="../site_libs/clipboard/clipboard.min.js"></script><script src="../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../site_libs/quarto-search/fuse.min.js"></script><script src="../site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script><script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script><script src="../site_libs/quarto-html/popper.min.js"></script><script src="../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../site_libs/quarto-html/anchor.min.js"></script><link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script><link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-766db4f22cb325127a3ad17c2d6be55e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-47a368f8809a06e2c65a4eda659d3e74.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -190,31 +193,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="create-project-in-google-cloud" class="level2"><h2 class="anchored" data-anchor-id="create-project-in-google-cloud">Create project in Google Cloud</h2>
 <p>Go to <a href="https://console.cloud.google.com/">Google Cloud Console</a> and accept terms of use. Then, create a new project, specify name an accept. The tab opnening the projects is right next to Google Cloud logo.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/GCproject.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/GCproject.png" class="img-fluid figure-img"></p>
 <figcaption>Google cloud project</figcaption></figure>
 </div>
 <p>Once created, open the project (using the same tab as previous step) and click on the three lines left of the Google Cloud logo, go to APIs &amp; Services and Enabled APIs &amp; services.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/GCapi.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/GCapi.png" class="img-fluid figure-img"></p>
 <figcaption>Google Cloud API</figcaption></figure>
 </div>
 <p>Next, go to enable apis and services.</p>
-<p><img src="..\assets/images/GCenable.png" class="img-fluid" alt="Enabling">]</p>
+<p><img src="../assets/images/GCenable.png" class="img-fluid" alt="Enabling">]</p>
 <p>Then search for google drive api and click on it. An enable button will appear, click on it to enable. Do the same for Google Docs API.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/GCGDapi.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/GCGDapi.png" class="img-fluid figure-img"></p>
 <figcaption>GCAPI</figcaption></figure>
 </div>
 <p>Once both APIS are enabled go back to the APIs &amp; Services menu and click on OAuth consent screen. Then click on external option and create.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/GCconsent.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/GCconsent.png" class="img-fluid figure-img"></p>
 <figcaption>Consent</figcaption></figure>
 </div>
 <p>Then, you need to create an app name and associate an email with the app, as well as a developer contact. Next click on add or remove scopes. Activate “…/auth/userinfo.email” “openid”, “…/auth/drive” and “…/auth/docs”. Finally, update, save changes and accept.</p>
 <p>Back in the OAuth consent screen publish app and confirm.</p>
 <p>The next step is go to the credentials menu and create a nuew OAuth 2.0 Client IDs. Go to create credentials, OAUth client ID, select application type = Desktop app and set the desired name. Next, the credential will be shown. Click on download json and save file in your local disk.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="..\assets/images/GCcredentials.png" class="img-fluid figure-img"></p>
+<figure class="figure"><p><img src="../assets/images/GCcredentials.png" class="img-fluid figure-img"></p>
 <figcaption>Credentials</figcaption></figure>
 </div>
 <p>Next, open RStudio locally, install “usethis” package and use <code>usethis::edit_r_environ()</code> to modify the environment, which will be run everytime R starts. In this file save the following: <code>GOOGLEDRIVE_PATH = {location}</code>, setting the location of your json secret instead of {location}.</p>
